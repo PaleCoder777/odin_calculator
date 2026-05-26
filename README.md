@@ -21,3 +21,4 @@
 
 **Project Considerations/Logic Errors**
 - Use objects to hold related information
+- Limit characters in the display, if too many, no wrapping and it goes off display
