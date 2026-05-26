@@ -3,3 +3,62 @@ body {
     color:white;
     text-align: center;
 }
+
+* {
+    margin: 5px;
+}
+
+#calculator{
+    border-style: solid;
+    border-radius: 1px;
+    border-color: white;
+    box-sizing: border-box;
+    max-width: 400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#display,
+#calcBtns,
+#equals {
+    border-style: solid;
+    border-radius: 1px;
+    border-color: red;
+} 
+
+#display {
+    font-size: 30px;
+}
+
+#calcBtns{
+    display: flex;
+    flex-direction: column;
+}
+
+.calcRow{
+    border-style: solid;
+    border-radius: 1px;
+    border-color: green;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    justify-content:space-evenly;
+}
+
+.calcRow button{
+    box-sizing: border-box;
+    width: 50px;
+    height: 50px;
+
+}
+
+#equals{
+    display: flex;
+    flex-direction: row;
+}
+
+#equalsBtn{
+    height: 25px;
+    flex-grow: 1;
+}
