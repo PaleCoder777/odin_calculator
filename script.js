@@ -1,4 +1,20 @@
 // Project: Calculator
+/* Testing boolean of (empty)strings
+let x = "something";
+let y = "";
+
+if (x){
+    console.log(`x: has string inside`);
+} else {
+    console.log(`x: no string inside`);
+}
+
+if (y){
+    console.log(`y: has string inside`);
+} else {
+    console.log(`y: no string inside`);
+}
+*/
 
 // Object for math operator functions
 let mathOperations = {
@@ -86,6 +102,9 @@ let changeDOM = {
         currentCalc.storeValue2 = ("");
         currentCalc.operator = ("");
     },
+    removeStoreValue2: function(){
+        currentCalc.storeValue2 = ("");
+    },
 }
 
 
@@ -94,7 +113,7 @@ let changeDOM = {
 nodeSelect.calculator.addEventListener("click", () => {
     let target = event.target;
 
-    switch(target.id) {
+    switch(target.id) {     
         case ("clear"):
             // Reset display
             changeDOM.resetDisplay();
@@ -119,27 +138,99 @@ nodeSelect.calculator.addEventListener("click", () => {
             break;
         
         case ("plus"):
-            changeDOM.incrementDisplay(nodeSelect.plus.textContent);
-            changeDOM.storeOperator(nodeSelect.plus.textContent);
-            console.log(`Stored Operator:${currentCalc.operator}`);
+            if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+                changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
+
+                console.log(currentCalc.value1, currentCalc.value2);
+
+                let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
+
+                console.log(result);
+
+                currentCalc.storeValue1 = result;
+                currentCalc.operator = nodeSelect.plus.textContent;
+                changeDOM.removeStoreValue2();
+                changeDOM.updateDisplay(result);
+                changeDOM.incrementDisplay(currentCalc.operator);
+
+                console.log(currentCalc.storeValue1, currentCalc.operator,currentCalc.storeValue2);
+            } else {
+                changeDOM.incrementDisplay(nodeSelect.plus.textContent);
+                changeDOM.storeOperator(nodeSelect.plus.textContent);
+                console.log(`Stored Operator:${currentCalc.operator}`);
+            }
             break;
 
         case ("minus"):
-            changeDOM.incrementDisplay(nodeSelect.minus.textContent);
-            changeDOM.storeOperator(nodeSelect.minus.textContent);
-            console.log(`Stored Operator:${currentCalc.operator}`);
+            if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+                changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
+
+                console.log(currentCalc.value1, currentCalc.value2);
+
+                let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
+
+                console.log(result);
+
+                currentCalc.storeValue1 = result;
+                currentCalc.operator = nodeSelect.minus.textContent;
+                changeDOM.removeStoreValue2();
+                changeDOM.updateDisplay(result);
+                changeDOM.incrementDisplay(currentCalc.operator);
+
+                console.log(currentCalc.storeValue1, currentCalc.operator,currentCalc.storeValue2);
+            } else {
+                changeDOM.incrementDisplay(nodeSelect.minus.textContent);
+                changeDOM.storeOperator(nodeSelect.minus.textContent);
+                console.log(`Stored Operator:${currentCalc.operator}`);
+            }
             break;
 
         case ("times"):
-            changeDOM.incrementDisplay(nodeSelect.times.textContent);
-            changeDOM.storeOperator(nodeSelect.times.textContent);
-            console.log(`Stored Operator:${currentCalc.operator}`);
+            if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+                changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
+
+                console.log(currentCalc.value1, currentCalc.value2);
+
+                let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
+
+                console.log(result);
+
+                currentCalc.storeValue1 = result;
+                currentCalc.operator = nodeSelect.times.textContent;
+                changeDOM.removeStoreValue2();
+                changeDOM.updateDisplay(result);
+                changeDOM.incrementDisplay(currentCalc.operator);
+
+                console.log(currentCalc.storeValue1, currentCalc.operator,currentCalc.storeValue2);
+            } else {
+                changeDOM.incrementDisplay(nodeSelect.times.textContent);
+                changeDOM.storeOperator(nodeSelect.times.textContent);
+                console.log(`Stored Operator:${currentCalc.operator}`);
+            }
             break;
 
         case ("dividedBy"):
-            changeDOM.incrementDisplay(nodeSelect.dividedBy.textContent);
-            changeDOM.storeOperator(nodeSelect.dividedBy.textContent);
-            console.log(`Stored Operator:${currentCalc.operator}`);
+            if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+                changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
+
+                console.log(currentCalc.value1, currentCalc.value2);
+
+                let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
+
+                console.log(result);
+
+                currentCalc.storeValue1 = result;
+                currentCalc.operator = nodeSelect.dividedBy.textContent;
+                changeDOM.removeStoreValue2();
+                changeDOM.updateDisplay(result);
+                changeDOM.incrementDisplay(currentCalc.operator);
+
+                console.log(currentCalc.storeValue1, currentCalc.operator,currentCalc.storeValue2);
+            } else {
+                changeDOM.incrementDisplay(nodeSelect.dividedBy.textContent);
+                changeDOM.storeOperator(nodeSelect.dividedBy.textContent);
+                console.log(`Stored Operator:${currentCalc.operator}`);
+            }
             break;
 
         case ("oneBtn"):
