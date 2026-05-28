@@ -45,6 +45,7 @@ let currentCalc = {
         if (operator === "*") return mathOperations.multiply(num1, num2);
         if (operator === "/") return mathOperations.divide(num1, num2);
     },
+    equalsPressed: false,
 };
 
 // DOM Nodes Object
@@ -89,6 +90,9 @@ let changeDOM = {
     storeOperator: function(operatorToStore) {
         currentCalc.operator = currentCalc.operator.concat(operatorToStore);
     },
+    replaceOperator: function(operatorReplacement) {
+    currentCalc.operator = operatorReplacement;
+    },
     convertToNumber: function(storeValue1, storeValue2){
         currentCalc.value1 = +(storeValue1);
         currentCalc.value2 = +(storeValue2);
@@ -96,6 +100,8 @@ let changeDOM = {
     removeAllStored: function() {
         currentCalc.storeValue1 = ("");
         currentCalc.storeValue2 = ("");
+        currentCalc.value1 = ("");
+        currentCalc.value2 = ("");
         currentCalc.operator = ("");
     },
     removeSomeStored: function(){
@@ -115,6 +121,8 @@ nodeSelect.calculator.addEventListener("click", () => {
 
     switch(target.id) {     
         case ("clear"):
+            currentCalc.equalsPressed = false;
+        
             // Reset display
             changeDOM.resetDisplay();
 
@@ -124,6 +132,9 @@ nodeSelect.calculator.addEventListener("click", () => {
             break;
 
         case ("equalsBtn"):
+            // equalsPressed true
+            currentCalc.equalsPressed = true;
+
             // Change string values to number type
             changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
 
@@ -138,6 +149,7 @@ nodeSelect.calculator.addEventListener("click", () => {
             break;
         
         case ("plus"):
+            currentCalc.equalsPressed = false;
             if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
 
@@ -154,6 +166,12 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.incrementDisplay(currentCalc.operator);
 
                 console.log(currentCalc.storeValue1, currentCalc.operator,currentCalc.storeValue2);
+            } else if (currentCalc.operator){
+                console.log(`Operator before replaced`)
+                changeDOM.replaceOperator(nodeSelect.plus.textContent)
+                changeDOM.updateDisplay(currentCalc.storeValue1);
+                changeDOM.incrementDisplay(currentCalc.operator);
+                console.log(`Operator after replaced`)
             } else {
                 changeDOM.incrementDisplay(nodeSelect.plus.textContent);
                 changeDOM.storeOperator(nodeSelect.plus.textContent);
@@ -162,6 +180,7 @@ nodeSelect.calculator.addEventListener("click", () => {
             break;
 
         case ("minus"):
+            currentCalc.equalsPressed = false;
             if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
 
@@ -178,6 +197,12 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.incrementDisplay(currentCalc.operator);
 
                 console.log(currentCalc.storeValue1, currentCalc.operator,currentCalc.storeValue2);
+            } else if (currentCalc.operator){
+                console.log(`Operator before replaced`)
+                changeDOM.replaceOperator(nodeSelect.minus.textContent)
+                changeDOM.updateDisplay(currentCalc.storeValue1);
+                changeDOM.incrementDisplay(currentCalc.operator);
+                console.log(`Operator after replaced`)
             } else {
                 changeDOM.incrementDisplay(nodeSelect.minus.textContent);
                 changeDOM.storeOperator(nodeSelect.minus.textContent);
@@ -186,6 +211,7 @@ nodeSelect.calculator.addEventListener("click", () => {
             break;
 
         case ("times"):
+            currentCalc.equalsPressed = false;
             if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
 
@@ -202,6 +228,12 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.incrementDisplay(currentCalc.operator);
 
                 console.log(currentCalc.storeValue1, currentCalc.operator,currentCalc.storeValue2);
+            } else if (currentCalc.operator){
+                console.log(`Operator before replaced`)
+                changeDOM.replaceOperator(nodeSelect.times.textContent)
+                changeDOM.updateDisplay(currentCalc.storeValue1);
+                changeDOM.incrementDisplay(currentCalc.operator);
+                console.log(`Operator after replaced`)
             } else {
                 changeDOM.incrementDisplay(nodeSelect.times.textContent);
                 changeDOM.storeOperator(nodeSelect.times.textContent);
@@ -210,6 +242,7 @@ nodeSelect.calculator.addEventListener("click", () => {
             break;
 
         case ("dividedBy"):
+            currentCalc.equalsPressed = false;
             if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
 
@@ -226,6 +259,12 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.incrementDisplay(currentCalc.operator);
 
                 console.log(currentCalc.storeValue1, currentCalc.operator,currentCalc.storeValue2);
+            } else if (currentCalc.operator){
+                console.log(`Operator before replaced`)
+                changeDOM.replaceOperator(nodeSelect.dividedBy.textContent)
+                changeDOM.updateDisplay(currentCalc.storeValue1);
+                changeDOM.incrementDisplay(currentCalc.operator);
+                console.log(`Operator after replaced`)
             } else {
                 changeDOM.incrementDisplay(nodeSelect.dividedBy.textContent);
                 changeDOM.storeOperator(nodeSelect.dividedBy.textContent);
@@ -234,87 +273,183 @@ nodeSelect.calculator.addEventListener("click", () => {
             break;
 
         case ("oneBtn"):
-            // Update display w/ button value
-            changeDOM.incrementDisplay(nodeSelect.oneBtn.textContent);
+            // if equalspressed is true, we update OR clear + incremenent
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.oneBtn.textContent);
+                changeDOM.storeValue(nodeSelect.oneBtn.textContent);
+                currentCalc.equalsPressed = false;
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            } else if (currentCalc.equalsPressed === false) {
+                // Update display w/ button value
+                changeDOM.incrementDisplay(nodeSelect.oneBtn.textContent);
 
-            // Concat button value to our value holder
-            changeDOM.storeValue(nodeSelect.oneBtn.textContent);
-            console.log(`Store Value 1:${currentCalc.storeValue1}`);
-            console.log(`Store Value 2:${currentCalc.storeValue2}`);
-
+                // Concat button value to our value holder
+                changeDOM.storeValue(nodeSelect.oneBtn.textContent);
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            }
             break;
 
         case ("twoBtn"):
-            // Update display w/ button value
-            changeDOM.incrementDisplay(nodeSelect.twoBtn.textContent);
+            // if equalspressed is true, we update OR clear + incremenent
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.twoBtn.textContent);
+                changeDOM.storeValue(nodeSelect.twoBtn.textContent);
+                currentCalc.equalsPressed = false;
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            } else if (currentCalc.equalsPressed === false) {
+                // Update display w/ button value
+                changeDOM.incrementDisplay(nodeSelect.twoBtn.textContent);
 
-            // Concat button value to our value holder
-            changeDOM.storeValue(nodeSelect.twoBtn.textContent);
-            console.log(`Store Value 1:${currentCalc.storeValue1}`);
-            console.log(`Store Value 2:${currentCalc.storeValue2}`);
+                // Concat button value to our value holder
+                changeDOM.storeValue(nodeSelect.twoBtn.textContent);
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            }
             break;
         
         case ("threeBtn"):
-            changeDOM.incrementDisplay(nodeSelect.threeBtn.textContent);
+            // if equalspressed is true, we update OR clear + incremenent
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.threeBtn.textContent);
+                changeDOM.storeValue(nodeSelect.threeBtn.textContent);
+                currentCalc.equalsPressed = false;
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            } else if (currentCalc.equalsPressed === false) {
+                // Update display w/ button value
+                changeDOM.incrementDisplay(nodeSelect.threeBtn.textContent);
 
-            // Concat button value to our value holder
-            changeDOM.storeValue(nodeSelect.threeBtn.textContent);
-            console.log(`Store Value 1:${currentCalc.storeValue1}`);
-            console.log(`Store Value 2:${currentCalc.storeValue2}`);
+                // Concat button value to our value holder
+                changeDOM.storeValue(nodeSelect.threeBtn.textContent);
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            }
             break;
 
         case ("fourBtn"):
-            changeDOM.incrementDisplay(nodeSelect.fourBtn.textContent);
+            // if equalspressed is true, we update OR clear + incremenent
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.fourBtn.textContent);
+                changeDOM.storeValue(nodeSelect.fourBtn.textContent);
+                currentCalc.equalsPressed = false;
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            } else if (currentCalc.equalsPressed === false) {
+                // Update display w/ button value
+                changeDOM.incrementDisplay(nodeSelect.fourBtn.textContent);
 
-            // Concat button value to our value holder
-            changeDOM.storeValue(nodeSelect.fourBtn.textContent);
-            console.log(`Store Value 1:${currentCalc.storeValue1}`);
-            console.log(`Store Value 2:${currentCalc.storeValue2}`);
+                // Concat button value to our value holder
+                changeDOM.storeValue(nodeSelect.fourBtn.textContent);
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            }
             break;
 
         case ("fiveBtn"):
-            changeDOM.incrementDisplay(nodeSelect.fiveBtn.textContent);
+            // if equalspressed is true, we update OR clear + incremenent
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.fiveBtn.textContent);
+                changeDOM.storeValue(nodeSelect.fiveBtn.textContent);
+                currentCalc.equalsPressed = false;
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            } else if (currentCalc.equalsPressed === false) {
+                // Update display w/ button value
+                changeDOM.incrementDisplay(nodeSelect.fiveBtn.textContent);
 
-            // Concat button value to our value holder
-            changeDOM.storeValue(nodeSelect.fiveBtn.textContent);
-            console.log(`Store Value 1:${currentCalc.storeValue1}`);
-            console.log(`Store Value 2:${currentCalc.storeValue2}`);
+                // Concat button value to our value holder
+                changeDOM.storeValue(nodeSelect.fiveBtn.textContent);
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            }
             break;
 
         case ("sixBtn"):
-            changeDOM.incrementDisplay(nodeSelect.sixBtn.textContent);
+            // if equalspressed is true, we update OR clear + incremenent
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.sixBtn.textContent);
+                changeDOM.storeValue(nodeSelect.sixBtn.textContent);
+                currentCalc.equalsPressed = false;
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            } else if (currentCalc.equalsPressed === false) {
+                // Update display w/ button value
+                changeDOM.incrementDisplay(nodeSelect.sixBtn.textContent);
 
-            // Concat button value to our value holder
-            changeDOM.storeValue(nodeSelect.sixBtn.textContent);
-            console.log(`Store Value 1:${currentCalc.storeValue1}`);
-            console.log(`Store Value 2:${currentCalc.storeValue2}`);
+                // Concat button value to our value holder
+                changeDOM.storeValue(nodeSelect.sixBtn.textContent);
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            }
             break;
 
         case ("sevenBtn"):
-            changeDOM.incrementDisplay(nodeSelect.sevenBtn.textContent);
+            // if equalspressed is true, we update OR clear + incremenent
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.sevenBtn.textContent);
+                changeDOM.storeValue(nodeSelect.sevenBtn.textContent);
+                currentCalc.equalsPressed = false;
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            } else if (currentCalc.equalsPressed === false) {
+                // Update display w/ button value
+                changeDOM.incrementDisplay(nodeSelect.sevenBtn.textContent);
 
-            // Concat button value to our value holder
-            changeDOM.storeValue(nodeSelect.sevenBtn.textContent);
-            console.log(`Store Value 1:${currentCalc.storeValue1}`);
-            console.log(`Store Value 2:${currentCalc.storeValue2}`);
+                // Concat button value to our value holder
+                changeDOM.storeValue(nodeSelect.sevenBtn.textContent);
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            }
             break;
         
         case ("eightBtn"):
-            changeDOM.incrementDisplay(nodeSelect.eightBtn.textContent);
+            // if equalspressed is true, we update OR clear + incremenent
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.eightBtn.textContent);
+                changeDOM.storeValue(nodeSelect.eightBtn.textContent);
+                currentCalc.equalsPressed = false;
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            } else if (currentCalc.equalsPressed === false) {
+                // Update display w/ button value
+                changeDOM.incrementDisplay(nodeSelect.eightBtn.textContent);
 
-            // Concat button value to our value holder
-            changeDOM.storeValue(nodeSelect.eightBtn.textContent);
-            console.log(`Store Value 1:${currentCalc.storeValue1}`);
-            console.log(`Store Value 2:${currentCalc.storeValue2}`);
+                // Concat button value to our value holder
+                changeDOM.storeValue(nodeSelect.eightBtn.textContent);
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            }
             break;
         
         case ("nineBtn"):
-            changeDOM.incrementDisplay(nodeSelect.nineBtn.textContent);
+            // if equalspressed is true, we update OR clear + incremenent
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.nineBtn.textContent);
+                changeDOM.storeValue(nodeSelect.nineBtn.textContent);
+                currentCalc.equalsPressed = false;
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            } else if (currentCalc.equalsPressed === false) {
+                // Update display w/ button value
+                changeDOM.incrementDisplay(nodeSelect.nineBtn.textContent);
 
-            // Concat button value to our value holder
-            changeDOM.storeValue(nodeSelect.nineBtn.textContent);
-            console.log(`Store Value 1:${currentCalc.storeValue1}`);
-            console.log(`Store Value 2:${currentCalc.storeValue2}`);
+                // Concat button value to our value holder
+                changeDOM.storeValue(nodeSelect.nineBtn.textContent);
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            }
             break;
     }
 });
