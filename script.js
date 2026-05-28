@@ -67,6 +67,10 @@ let nodeSelect = {
     plus: document.querySelector("#plus"),
     calcBtns: document.querySelector("#calcBtns"),
     calculator: document.querySelector("#calculator"),
+    zeroBtn: document.querySelector("#zeroBtn"),
+    decimal: document.querySelector("#decimal"),
+    backspace: document.querySelector("#backspace"),
+    happy: document.querySelector("#happy")
 }
 
 // For event listener things
@@ -136,23 +140,30 @@ nodeSelect.calculator.addEventListener("click", () => {
                 // equalsPressed true
                 currentCalc.equalsPressed = true;
 
-                // Change string values to number type
-                changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
+                if (currentCalc.storeValue2 === "0") {
+                    changeDOM.updateDisplay("*dies...*");
+                } else {
+                    // Change string values to number type
+                    changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
 
-                // Calculate result as a string, display result
-                let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-                changeDOM.updateDisplay(result);
+                    // Calculate result as a string, display result
+                    let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
+                    changeDOM.updateDisplay(result);
 
-                // Store result value into storevalue1, reset the other 2
-                currentCalc.storeValue1 = result;
-                changeDOM.removeSomeStored();
+                    // Store result value into storevalue1, reset the other 2
+                    currentCalc.storeValue1 = result;
+                    changeDOM.removeSomeStored();
+                }
             }
 
             break;
         
         case ("plus"):
             currentCalc.equalsPressed = false;
-            if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+            if (currentCalc.storeValue2 === "0") {
+                changeDOM.updateDisplay("*dies...*");
+                currentCalc.equalsPressed = true;
+            } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
 
                 console.log(currentCalc.value1, currentCalc.value2);
@@ -183,7 +194,10 @@ nodeSelect.calculator.addEventListener("click", () => {
 
         case ("minus"):
             currentCalc.equalsPressed = false;
-            if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+            if (currentCalc.storeValue2 === "0") {
+                changeDOM.updateDisplay("*dies...*");
+                currentCalc.equalsPressed = true;
+            } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
 
                 console.log(currentCalc.value1, currentCalc.value2);
@@ -214,7 +228,10 @@ nodeSelect.calculator.addEventListener("click", () => {
 
         case ("times"):
             currentCalc.equalsPressed = false;
-            if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+            if (currentCalc.storeValue2 === "0") {
+                changeDOM.updateDisplay("*dies...*");
+                currentCalc.equalsPressed = true;
+            } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
 
                 console.log(currentCalc.value1, currentCalc.value2);
@@ -245,7 +262,10 @@ nodeSelect.calculator.addEventListener("click", () => {
 
         case ("dividedBy"):
             currentCalc.equalsPressed = false;
-            if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+            if (currentCalc.storeValue2 === "0") {
+                changeDOM.updateDisplay("*dies...*");
+                currentCalc.equalsPressed = true;
+            } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
 
                 console.log(currentCalc.value1, currentCalc.value2);
@@ -271,6 +291,26 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.incrementDisplay(nodeSelect.dividedBy.textContent);
                 changeDOM.storeOperator(nodeSelect.dividedBy.textContent);
                 console.log(`Stored Operator:${currentCalc.operator}`);
+            }
+            break;
+
+        case ("zeroBtn"):
+            // if equalspressed is true, we update OR clear + incremenent
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.zeroBtn.textContent);
+                changeDOM.storeValue(nodeSelect.zeroBtn.textContent);
+                currentCalc.equalsPressed = false;
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
+            } else if (currentCalc.equalsPressed === false) {
+                // Update display w/ button value
+                changeDOM.incrementDisplay(nodeSelect.zeroBtn.textContent);
+
+                // Concat button value to our value holder
+                changeDOM.storeValue(nodeSelect.zeroBtn.textContent);
+                console.log(`Store Value 1:${currentCalc.storeValue1}`);
+                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             }
             break;
 

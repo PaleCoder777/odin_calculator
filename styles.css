@@ -63,3 +63,8 @@ body {
     height: 25px;
     flex-grow: 1;
 }
+
+#happy,
+#decimal {
+    font-size: 25px;
+}
