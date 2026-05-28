@@ -19,16 +19,32 @@ if (y){
 // Object for math operator functions
 let mathOperations = {
     add: function (num1, num2) {
-    return (num1 + num2);
+        let sum = (num1+ num2);
+        if (currentCalc.storeValue1.includes(".") || currentCalc.storeValue2.includes(".")){
+            return sum.toFixed(3);
+        }
+        return sum;
     },
     subtract: function (num1, num2) {
-    return (num1 - num2);
+        let difference = (num1 - num2);
+        if (currentCalc.storeValue1.includes(".") || currentCalc.storeValue2.includes(".")){
+            return difference.toFixed(3);
+        }
+        return difference;
     },
     multiply: function (num1, num2) {
-    return (num1 * num2);
+        let product = (num1 * num2);
+        if (currentCalc.storeValue1.includes(".") || currentCalc.storeValue2.includes(".")){
+            return product.toFixed(3);
+        }
+        return product
     },
     divide: function (num1, num2) {
-    return (num1 / num2);
+        let quotient = (num1 / num2);
+        if (currentCalc.storeValue1.includes(".") || currentCalc.storeValue2.includes(".")){
+            return quotient.toFixed(3);
+        }
+        return quotient
     },
 }
 
@@ -119,11 +135,28 @@ let changeDOM = {
 
 
 
+
 // Event Delegation to calcButtons div
 nodeSelect.calculator.addEventListener("click", () => {
     let target = event.target;
 
     switch(target.id) {     
+        case ("decimal"):
+            // if equalspressed is true, we update OR clear + incremenent
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.decimal.textContent);
+                changeDOM.storeValue(nodeSelect.decimal.textContent);
+                currentCalc.equalsPressed = false;
+            } else if (currentCalc.equalsPressed === false) {
+                // Update display w/ button value
+                changeDOM.incrementDisplay(nodeSelect.decimal.textContent);
+
+                // Concat button value to our value holder
+                changeDOM.storeValue(nodeSelect.decimal.textContent);
+            }
+            break;
+
         case ("clear"):
             currentCalc.equalsPressed = false;
         
@@ -148,6 +181,7 @@ nodeSelect.calculator.addEventListener("click", () => {
 
                     // Calculate result as a string, display result
                     let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
+
                     changeDOM.updateDisplay(result);
 
                     // Store result value into storevalue1, reset the other 2
