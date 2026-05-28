@@ -132,19 +132,21 @@ nodeSelect.calculator.addEventListener("click", () => {
             break;
 
         case ("equalsBtn"):
-            // equalsPressed true
-            currentCalc.equalsPressed = true;
+            if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+                // equalsPressed true
+                currentCalc.equalsPressed = true;
 
-            // Change string values to number type
-            changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
+                // Change string values to number type
+                changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
 
-            // Calculate result as a string, display result
-            let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-            changeDOM.updateDisplay(result);
+                // Calculate result as a string, display result
+                let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
+                changeDOM.updateDisplay(result);
 
-            // Store result value into storevalue1, reset the other 2
-            currentCalc.storeValue1 = result;
-            changeDOM.removeSomeStored();
+                // Store result value into storevalue1, reset the other 2
+                currentCalc.storeValue1 = result;
+                changeDOM.removeSomeStored();
+            }
 
             break;
         
