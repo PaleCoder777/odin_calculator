@@ -1,22 +1,5 @@
 // Project: Calculator
-/* Testing boolean of (empty)strings
-let x = "something";
-let y = "";
 
-if (x){
-    console.log(`x: has string inside`);
-} else {
-    console.log(`x: no string inside`);
-}
-
-if (y){
-    console.log(`y: has string inside`);
-} else {
-    console.log(`y: no string inside`);
-}
-*/
-
-// Object for math operator functions
 let mathOperations = {
     add: function (num1, num2) {
         let sum = (num1+ num2);
@@ -48,7 +31,6 @@ let mathOperations = {
     },
 }
 
-// 3 variables for a calculatior operations
 let currentCalc = {
     storeValue1: "",
     value1: "",
@@ -64,7 +46,6 @@ let currentCalc = {
     equalsPressed: false,
 };
 
-// DOM Nodes Object
 let nodeSelect = {
     display: document.querySelector("#display"),
     clear: document.querySelector("#clear"),
@@ -89,7 +70,6 @@ let nodeSelect = {
     happy: document.querySelector("#happy")
 }
 
-// For event listener things
 let changeDOM = {
     updateDisplay: function(valueToDisplay){
         nodeSelect.display.textContent = valueToDisplay;
@@ -133,10 +113,6 @@ let changeDOM = {
     },
 }
 
-
-
-
-// Event Delegation to calcButtons div
 nodeSelect.calculator.addEventListener("click", () => {
     let target = event.target;
 
@@ -213,11 +189,7 @@ nodeSelect.calculator.addEventListener("click", () => {
             } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
 
-                console.log(currentCalc.value1, currentCalc.value2);
-
                 let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-
-                console.log(result);
 
                 currentCalc.storeValue1 = result;
                 currentCalc.operator = nodeSelect.plus.textContent;
@@ -226,7 +198,6 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.incrementDisplay(currentCalc.operator);
                 nodeSelect.decimal.disabled = false;
 
-                console.log(currentCalc.storeValue1, currentCalc.operator,currentCalc.storeValue2);
             } else if (currentCalc.operator){
                 changeDOM.replaceOperator(nodeSelect.plus.textContent)
                 changeDOM.updateDisplay(currentCalc.storeValue1);
@@ -248,11 +219,7 @@ nodeSelect.calculator.addEventListener("click", () => {
             } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
 
-                console.log(currentCalc.value1, currentCalc.value2);
-
                 let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-
-                console.log(result);
 
                 currentCalc.storeValue1 = result;
                 currentCalc.operator = nodeSelect.minus.textContent;
@@ -261,19 +228,15 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.incrementDisplay(currentCalc.operator);
                 nodeSelect.decimal.disabled = false;
 
-                console.log(currentCalc.storeValue1, currentCalc.operator,currentCalc.storeValue2);
             } else if (currentCalc.operator){
-                console.log(`Operator before replaced`)
                 changeDOM.replaceOperator(nodeSelect.minus.textContent)
                 changeDOM.updateDisplay(currentCalc.storeValue1);
                 changeDOM.incrementDisplay(currentCalc.operator);
                 nodeSelect.decimal.disabled = false;
-                console.log(`Operator after replaced`)
             } else {
                 changeDOM.incrementDisplay(nodeSelect.minus.textContent);
                 changeDOM.storeOperator(nodeSelect.minus.textContent);
                 nodeSelect.decimal.disabled = false;
-                console.log(`Stored Operator:${currentCalc.operator}`);
             }
             break;
 
@@ -286,11 +249,7 @@ nodeSelect.calculator.addEventListener("click", () => {
             } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
 
-                console.log(currentCalc.value1, currentCalc.value2);
-
                 let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-
-                console.log(result);
 
                 currentCalc.storeValue1 = result;
                 currentCalc.operator = nodeSelect.times.textContent;
@@ -299,19 +258,15 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.incrementDisplay(currentCalc.operator);
                 nodeSelect.decimal.disabled = false;
 
-                console.log(currentCalc.storeValue1, currentCalc.operator,currentCalc.storeValue2);
             } else if (currentCalc.operator){
-                console.log(`Operator before replaced`)
                 changeDOM.replaceOperator(nodeSelect.times.textContent)
                 changeDOM.updateDisplay(currentCalc.storeValue1);
                 changeDOM.incrementDisplay(currentCalc.operator);
                 nodeSelect.decimal.disabled = false;
-                console.log(`Operator after replaced`)
             } else {
                 changeDOM.incrementDisplay(nodeSelect.times.textContent);
                 changeDOM.storeOperator(nodeSelect.times.textContent);
                 nodeSelect.decimal.disabled = false;
-                console.log(`Stored Operator:${currentCalc.operator}`);
             }
             break;
 
@@ -324,11 +279,7 @@ nodeSelect.calculator.addEventListener("click", () => {
             } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
 
-                console.log(currentCalc.value1, currentCalc.value2);
-
                 let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-
-                console.log(result);
 
                 currentCalc.storeValue1 = result;
                 currentCalc.operator = nodeSelect.dividedBy.textContent;
@@ -337,19 +288,15 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.incrementDisplay(currentCalc.operator);
                 nodeSelect.decimal.disabled = false;
 
-                console.log(currentCalc.storeValue1, currentCalc.operator,currentCalc.storeValue2);
             } else if (currentCalc.operator){
-                console.log(`Operator before replaced`)
                 changeDOM.replaceOperator(nodeSelect.dividedBy.textContent)
                 changeDOM.updateDisplay(currentCalc.storeValue1);
                 changeDOM.incrementDisplay(currentCalc.operator);
                 nodeSelect.decimal.disabled = false;
-                console.log(`Operator after replaced`)
             } else {
                 changeDOM.incrementDisplay(nodeSelect.dividedBy.textContent);
                 changeDOM.storeOperator(nodeSelect.dividedBy.textContent);
                 nodeSelect.decimal.disabled = false;
-                console.log(`Stored Operator:${currentCalc.operator}`);
             }
             break;
 
@@ -360,16 +307,12 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.updateDisplay(nodeSelect.zeroBtn.textContent);
                 changeDOM.storeValue(nodeSelect.zeroBtn.textContent);
                 currentCalc.equalsPressed = false;
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             } else if (currentCalc.equalsPressed === false) {
                 // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.zeroBtn.textContent);
 
                 // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.zeroBtn.textContent);
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             }
             break;
 
@@ -380,16 +323,12 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.updateDisplay(nodeSelect.oneBtn.textContent);
                 changeDOM.storeValue(nodeSelect.oneBtn.textContent);
                 currentCalc.equalsPressed = false;
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             } else if (currentCalc.equalsPressed === false) {
                 // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.oneBtn.textContent);
 
                 // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.oneBtn.textContent);
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             }
             break;
 
@@ -400,16 +339,12 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.updateDisplay(nodeSelect.twoBtn.textContent);
                 changeDOM.storeValue(nodeSelect.twoBtn.textContent);
                 currentCalc.equalsPressed = false;
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             } else if (currentCalc.equalsPressed === false) {
                 // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.twoBtn.textContent);
 
                 // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.twoBtn.textContent);
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             }
             break;
         
@@ -420,16 +355,12 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.updateDisplay(nodeSelect.threeBtn.textContent);
                 changeDOM.storeValue(nodeSelect.threeBtn.textContent);
                 currentCalc.equalsPressed = false;
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             } else if (currentCalc.equalsPressed === false) {
                 // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.threeBtn.textContent);
 
                 // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.threeBtn.textContent);
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             }
             break;
 
@@ -440,16 +371,12 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.updateDisplay(nodeSelect.fourBtn.textContent);
                 changeDOM.storeValue(nodeSelect.fourBtn.textContent);
                 currentCalc.equalsPressed = false;
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             } else if (currentCalc.equalsPressed === false) {
                 // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.fourBtn.textContent);
 
                 // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.fourBtn.textContent);
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             }
             break;
 
@@ -460,16 +387,12 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.updateDisplay(nodeSelect.fiveBtn.textContent);
                 changeDOM.storeValue(nodeSelect.fiveBtn.textContent);
                 currentCalc.equalsPressed = false;
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             } else if (currentCalc.equalsPressed === false) {
                 // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.fiveBtn.textContent);
 
                 // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.fiveBtn.textContent);
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             }
             break;
 
@@ -480,16 +403,12 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.updateDisplay(nodeSelect.sixBtn.textContent);
                 changeDOM.storeValue(nodeSelect.sixBtn.textContent);
                 currentCalc.equalsPressed = false;
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             } else if (currentCalc.equalsPressed === false) {
                 // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.sixBtn.textContent);
 
                 // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.sixBtn.textContent);
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             }
             break;
 
@@ -500,16 +419,12 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.updateDisplay(nodeSelect.sevenBtn.textContent);
                 changeDOM.storeValue(nodeSelect.sevenBtn.textContent);
                 currentCalc.equalsPressed = false;
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             } else if (currentCalc.equalsPressed === false) {
                 // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.sevenBtn.textContent);
 
                 // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.sevenBtn.textContent);
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             }
             break;
         
@@ -520,16 +435,12 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.updateDisplay(nodeSelect.eightBtn.textContent);
                 changeDOM.storeValue(nodeSelect.eightBtn.textContent);
                 currentCalc.equalsPressed = false;
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             } else if (currentCalc.equalsPressed === false) {
                 // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.eightBtn.textContent);
 
                 // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.eightBtn.textContent);
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             }
             break;
         
@@ -540,16 +451,12 @@ nodeSelect.calculator.addEventListener("click", () => {
                 changeDOM.updateDisplay(nodeSelect.nineBtn.textContent);
                 changeDOM.storeValue(nodeSelect.nineBtn.textContent);
                 currentCalc.equalsPressed = false;
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             } else if (currentCalc.equalsPressed === false) {
                 // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.nineBtn.textContent);
 
                 // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.nineBtn.textContent);
-                console.log(`Store Value 1:${currentCalc.storeValue1}`);
-                console.log(`Store Value 2:${currentCalc.storeValue2}`);
             }
             break;
     }

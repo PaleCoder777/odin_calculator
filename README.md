@@ -1,57 +1,39 @@
-# odin_calculator
+# Foundations Project: Basic Calculator
 
-**TESTING Markdown**
-# Heading 1
-## Heading 2
-### Heading 3
-**Bold**
-*Italicized*
-
-ORDERED LIST
-1. One
-2. Two
-3. Three
-
-UNORDERED LIST
-- One
-- Two
-- Three
-
-`code`
-
-Horizontal Rule
----
-
-Link
-[TOP/Calculator](https://www.theodinproject.com/lessons/foundations-calculator)
+### Source
+- [The Odin Project, Foundations Course, JavaScript Basics, Project: Calculator](https://www.theodinproject.com/lessons/foundations-calculator)
 
 
+### Scope
+- All Around Focus, using HTML, CSS, and JS
+- The base project is to create the graphical user interface and logic for a basic calculator, which has digits 0-9, four basic operators, equals, and clear buttons.
+- The calculator should store and display what user clicks, and calculate a result when the user provides 2 numbers and an operator
+- Address a handful of potential bugs:
+    - round long decimal answers
+    - prevent equals button from trying to calculate before the user can provide 2 numbers and operator
+    - provide a message when user divides by 0
+    - Address a handful of potential bugs by rounding long decimal numbers
 
-**Source**
--   The Odin Project, Foundations Course, JavaScript Basics, Project: Calculator
-- https://www.theodinproject.com/lessons/foundations-calculator
 
-**Project Scope**
-- All Around Focus (HTML, CSS, JS)
-- (fill instruction)
+### Key Reflection Points
+- Using objects to hold my related variables/functions
+    - ex: grouping my DOM variables into a `nodeSelect` object
+    - ex: grouping DOM manipulation functions into a `changeDOM` object
+    - This is very handy when I need view many variables at once in the console
+- Setting up live expression in the web console
+    - While I used it more than halfway through, it was much more efficient to have several live expressions showing me what was happening behind the scenes, instead of console logging a bunch of my button logic
+- The more practice, the better 
 
-**Project Key Aspects**
-- used border styling around elements to visualize space to better use flexbox properties
-
-**Programming Concepts**
-- HTML
-
-- CSS
-- JavaScript
-**Programming Fundamentals Used**
-- flexbox
-- Git
-- Data Types
-- Conditionals
-- Functions
-- Objects
 
 **Project Considerations/Logic Errors**
-- Use objects to hold related information
-- Limit characters in the display, if too many, no wrapping and it goes off display
-- oops, I forgot to add a 0 button, add after calculators "works"
+- [x] Use objects to hold our variables/functions
+
+
+**Features Additions**
+- [x] Add a working decimal button, prevent multiple decimal points
+- [] Add a working backspace button, for numbers
+- [] Add keyboard support
+
+
+### Related Topics/Concepts
+- HTML, CSS, JavaScript, Flexbox, Git, Conditionals, Functions, Objects
