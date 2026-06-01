@@ -24,10 +24,7 @@ let mathOperations = {
     },
     divide: function (num1, num2) {
         let quotient = (num1 / num2);
-        if (currentCalc.storeValue1.includes(".") || currentCalc.storeValue2.includes(".")){
-            return quotient.toFixed(3);
-        }
-        return quotient
+        return quotient.toFixed(3);
     },
 }
 
@@ -111,6 +108,16 @@ let changeDOM = {
     removeStoreValue2: function(){
         currentCalc.storeValue2 = ("");
     },
+    backSpace: function(value){
+        let length = value.length;
+        let toLastChar = (length -1);
+        let decimalCheck = value.slice(-1);
+        if (decimalCheck === "."){
+            nodeSelect.decimal.disabled = false;
+        }
+        value = value.slice(0, toLastChar);
+        return value;
+    },
 }
 
 nodeSelect.calculator.addEventListener("click", () => {
@@ -118,7 +125,22 @@ nodeSelect.calculator.addEventListener("click", () => {
 
     switch(target.id) {     
         case ("backspace"):
-            console.log("backspace was clicked");
+            if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+                currentCalc.storeValue2 = changeDOM.backSpace(currentCalc.storeValue2);
+                changeDOM.updateDisplay(currentCalc.storeValue1);
+                changeDOM.incrementDisplay(currentCalc.operator);
+                changeDOM.incrementDisplay(currentCalc.storeValue2);
+                currentCalc.equalsPressed = false;
+            } else if (currentCalc.storeValue1, currentCalc.operator){
+                currentCalc.operator = changeDOM.backSpace(currentCalc.operator);
+                changeDOM.updateDisplay(currentCalc.storeValue1);
+                currentCalc.equalsPressed = false;
+            } else {
+                currentCalc.storeValue1 = changeDOM.backSpace(currentCalc.storeValue1);
+                changeDOM.updateDisplay(currentCalc.storeValue1);
+                currentCalc.equalsPressed = false;
+            }
+
             break;
             
         case ("decimal"):
