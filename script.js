@@ -153,7 +153,6 @@ nodeSelect.calculator.addEventListener("click", () => {
             break;
             
         case ("decimal"):
-            // if equalspressed is true, we update OR clear + incremenent
             if (currentCalc.equalsPressed === true){
                 changeDOM.removeAllStored();    
                 changeDOM.updateDisplay(nodeSelect.decimal.textContent);
@@ -161,10 +160,7 @@ nodeSelect.calculator.addEventListener("click", () => {
                 currentCalc.equalsPressed = false;
                 nodeSelect.decimal.disabled = true;
             } else if (currentCalc.equalsPressed === false) {
-                // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.decimal.textContent);
-
-                // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.decimal.textContent);
 
                 nodeSelect.decimal.disabled = true;
@@ -173,42 +169,26 @@ nodeSelect.calculator.addEventListener("click", () => {
 
         case ("clear"):
             currentCalc.equalsPressed = false;
-        
-            // Reset display
             changeDOM.resetDisplay();
-
-            // Reset stored values
             changeDOM.removeAllStored();
-
-            // enable the decimal
             nodeSelect.decimal.disabled = false;
-
             break;
 
         case ("equalsBtn"):
             if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
-                // equalsPressed true
                 currentCalc.equalsPressed = true;
-
                 if (currentCalc.operator === "/" && currentCalc.storeValue2 === "0" ) {
                     changeDOM.updateDisplay("*dies...*");
                     nodeSelect.decimal.disabled = false;
                 } else {
-                    // Change string values to number type
                     changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
-
-                    // Calculate result as a string, display result
                     let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-
                     changeDOM.updateDisplay(result);
-
-                    // Store result value into storevalue1, reset the other 2
                     currentCalc.storeValue1 = result;
                     changeDOM.removeSomeStored();
                     nodeSelect.decimal.disabled = false;
                 }
             }
-
             break;
         
         case ("plus"):
@@ -219,16 +199,13 @@ nodeSelect.calculator.addEventListener("click", () => {
                 nodeSelect.decimal.disabled = false;
             } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
-
                 let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-
                 currentCalc.storeValue1 = result;
                 currentCalc.operator = nodeSelect.plus.textContent;
                 changeDOM.removeStoreValue2();
                 changeDOM.updateDisplay(result);
                 changeDOM.incrementDisplay(currentCalc.operator);
                 nodeSelect.decimal.disabled = false;
-
             } else if (currentCalc.operator){
                 changeDOM.replaceOperator(nodeSelect.plus.textContent)
                 changeDOM.updateDisplay(currentCalc.storeValue1);
@@ -249,16 +226,13 @@ nodeSelect.calculator.addEventListener("click", () => {
                 nodeSelect.decimal.disabled = false;
             } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
-
                 let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-
                 currentCalc.storeValue1 = result;
                 currentCalc.operator = nodeSelect.minus.textContent;
                 changeDOM.removeStoreValue2();
                 changeDOM.updateDisplay(result);
                 changeDOM.incrementDisplay(currentCalc.operator);
                 nodeSelect.decimal.disabled = false;
-
             } else if (currentCalc.operator){
                 changeDOM.replaceOperator(nodeSelect.minus.textContent)
                 changeDOM.updateDisplay(currentCalc.storeValue1);
@@ -279,16 +253,13 @@ nodeSelect.calculator.addEventListener("click", () => {
                 nodeSelect.decimal.disabled = false;
             } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
-
                 let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-
                 currentCalc.storeValue1 = result;
                 currentCalc.operator = nodeSelect.times.textContent;
                 changeDOM.removeStoreValue2();
                 changeDOM.updateDisplay(result);
                 changeDOM.incrementDisplay(currentCalc.operator);
                 nodeSelect.decimal.disabled = false;
-
             } else if (currentCalc.operator){
                 changeDOM.replaceOperator(nodeSelect.times.textContent)
                 changeDOM.updateDisplay(currentCalc.storeValue1);
@@ -309,16 +280,13 @@ nodeSelect.calculator.addEventListener("click", () => {
                 nodeSelect.decimal.disabled = false;
             } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
-
                 let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-
                 currentCalc.storeValue1 = result;
                 currentCalc.operator = nodeSelect.dividedBy.textContent;
                 changeDOM.removeStoreValue2();
                 changeDOM.updateDisplay(result);
                 changeDOM.incrementDisplay(currentCalc.operator);
                 nodeSelect.decimal.disabled = false;
-
             } else if (currentCalc.operator){
                 changeDOM.replaceOperator(nodeSelect.dividedBy.textContent)
                 changeDOM.updateDisplay(currentCalc.storeValue1);
@@ -332,161 +300,121 @@ nodeSelect.calculator.addEventListener("click", () => {
             break;
 
         case ("zeroBtn"):
-            // if equalspressed is true, we update OR clear + incremenent
             if (currentCalc.equalsPressed === true){
                 changeDOM.removeAllStored();    
                 changeDOM.updateDisplay(nodeSelect.zeroBtn.textContent);
                 changeDOM.storeValue(nodeSelect.zeroBtn.textContent);
                 currentCalc.equalsPressed = false;
             } else if (currentCalc.equalsPressed === false) {
-                // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.zeroBtn.textContent);
-
-                // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.zeroBtn.textContent);
             }
             break;
 
         case ("oneBtn"):
-            // if equalspressed is true, we update OR clear + incremenent
             if (currentCalc.equalsPressed === true){
                 changeDOM.removeAllStored();    
                 changeDOM.updateDisplay(nodeSelect.oneBtn.textContent);
                 changeDOM.storeValue(nodeSelect.oneBtn.textContent);
                 currentCalc.equalsPressed = false;
             } else if (currentCalc.equalsPressed === false) {
-                // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.oneBtn.textContent);
-
-                // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.oneBtn.textContent);
             }
             break;
 
         case ("twoBtn"):
-            // if equalspressed is true, we update OR clear + incremenent
             if (currentCalc.equalsPressed === true){
                 changeDOM.removeAllStored();    
                 changeDOM.updateDisplay(nodeSelect.twoBtn.textContent);
                 changeDOM.storeValue(nodeSelect.twoBtn.textContent);
                 currentCalc.equalsPressed = false;
             } else if (currentCalc.equalsPressed === false) {
-                // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.twoBtn.textContent);
-
-                // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.twoBtn.textContent);
             }
             break;
         
         case ("threeBtn"):
-            // if equalspressed is true, we update OR clear + incremenent
             if (currentCalc.equalsPressed === true){
                 changeDOM.removeAllStored();    
                 changeDOM.updateDisplay(nodeSelect.threeBtn.textContent);
                 changeDOM.storeValue(nodeSelect.threeBtn.textContent);
                 currentCalc.equalsPressed = false;
             } else if (currentCalc.equalsPressed === false) {
-                // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.threeBtn.textContent);
-
-                // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.threeBtn.textContent);
             }
             break;
 
         case ("fourBtn"):
-            // if equalspressed is true, we update OR clear + incremenent
             if (currentCalc.equalsPressed === true){
                 changeDOM.removeAllStored();    
                 changeDOM.updateDisplay(nodeSelect.fourBtn.textContent);
                 changeDOM.storeValue(nodeSelect.fourBtn.textContent);
                 currentCalc.equalsPressed = false;
             } else if (currentCalc.equalsPressed === false) {
-                // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.fourBtn.textContent);
-
-                // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.fourBtn.textContent);
             }
             break;
 
         case ("fiveBtn"):
-            // if equalspressed is true, we update OR clear + incremenent
             if (currentCalc.equalsPressed === true){
                 changeDOM.removeAllStored();    
                 changeDOM.updateDisplay(nodeSelect.fiveBtn.textContent);
                 changeDOM.storeValue(nodeSelect.fiveBtn.textContent);
                 currentCalc.equalsPressed = false;
             } else if (currentCalc.equalsPressed === false) {
-                // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.fiveBtn.textContent);
-
-                // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.fiveBtn.textContent);
             }
             break;
 
         case ("sixBtn"):
-            // if equalspressed is true, we update OR clear + incremenent
             if (currentCalc.equalsPressed === true){
                 changeDOM.removeAllStored();    
                 changeDOM.updateDisplay(nodeSelect.sixBtn.textContent);
                 changeDOM.storeValue(nodeSelect.sixBtn.textContent);
                 currentCalc.equalsPressed = false;
             } else if (currentCalc.equalsPressed === false) {
-                // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.sixBtn.textContent);
-
-                // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.sixBtn.textContent);
             }
             break;
 
         case ("sevenBtn"):
-            // if equalspressed is true, we update OR clear + incremenent
             if (currentCalc.equalsPressed === true){
                 changeDOM.removeAllStored();    
                 changeDOM.updateDisplay(nodeSelect.sevenBtn.textContent);
                 changeDOM.storeValue(nodeSelect.sevenBtn.textContent);
                 currentCalc.equalsPressed = false;
             } else if (currentCalc.equalsPressed === false) {
-                // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.sevenBtn.textContent);
-
-                // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.sevenBtn.textContent);
             }
             break;
         
         case ("eightBtn"):
-            // if equalspressed is true, we update OR clear + incremenent
             if (currentCalc.equalsPressed === true){
                 changeDOM.removeAllStored();    
                 changeDOM.updateDisplay(nodeSelect.eightBtn.textContent);
                 changeDOM.storeValue(nodeSelect.eightBtn.textContent);
                 currentCalc.equalsPressed = false;
             } else if (currentCalc.equalsPressed === false) {
-                // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.eightBtn.textContent);
-
-                // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.eightBtn.textContent);
             }
             break;
         
         case ("nineBtn"):
-            // if equalspressed is true, we update OR clear + incremenent
             if (currentCalc.equalsPressed === true){
                 changeDOM.removeAllStored();    
                 changeDOM.updateDisplay(nodeSelect.nineBtn.textContent);
                 changeDOM.storeValue(nodeSelect.nineBtn.textContent);
                 currentCalc.equalsPressed = false;
             } else if (currentCalc.equalsPressed === false) {
-                // Update display w/ button value
                 changeDOM.incrementDisplay(nodeSelect.nineBtn.textContent);
-
-                // Concat button value to our value holder
                 changeDOM.storeValue(nodeSelect.nineBtn.textContent);
             }
             break;
@@ -495,34 +423,23 @@ nodeSelect.calculator.addEventListener("click", () => {
 
 document.addEventListener("keydown", () => {
     let key = event.key;
-    //console.log(key);
-    //console.log(event);
     
     switch(key){
         case ("Enter"):
             if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
-                // equalsPressed true
                 currentCalc.equalsPressed = true;
-
                 if (currentCalc.operator === "/" && currentCalc.storeValue2 === "0" ) {
                     changeDOM.updateDisplay("*dies...*");
                     nodeSelect.decimal.disabled = false;
                 } else {
-                    // Change string values to number type
                     changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
-
-                    // Calculate result as a string, display result
                     let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-
                     changeDOM.updateDisplay(result);
-
-                    // Store result value into storevalue1, reset the other 2
                     currentCalc.storeValue1 = result;
                     changeDOM.removeSomeStored();
                     nodeSelect.decimal.disabled = false;
                 }
             }
-
             break;
 
         case("0"):
@@ -616,16 +533,13 @@ document.addEventListener("keydown", () => {
                 nodeSelect.decimal.disabled = false;
             } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
-
                 let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-
                 currentCalc.storeValue1 = result;
                 currentCalc.operator = nodeSelect.plus.textContent;
                 changeDOM.removeStoreValue2();
                 changeDOM.updateDisplay(result);
                 changeDOM.incrementDisplay(currentCalc.operator);
                 nodeSelect.decimal.disabled = false;
-
             } else if (currentCalc.operator){
                 changeDOM.replaceOperator(nodeSelect.plus.textContent)
                 changeDOM.updateDisplay(currentCalc.storeValue1);
@@ -682,16 +596,13 @@ document.addEventListener("keydown", () => {
                 nodeSelect.decimal.disabled = false;
             } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
-
                 let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-
                 currentCalc.storeValue1 = result;
                 currentCalc.operator = nodeSelect.minus.textContent;
                 changeDOM.removeStoreValue2();
                 changeDOM.updateDisplay(result);
                 changeDOM.incrementDisplay(currentCalc.operator);
                 nodeSelect.decimal.disabled = false;
-
             } else if (currentCalc.operator){
                 changeDOM.replaceOperator(nodeSelect.minus.textContent)
                 changeDOM.updateDisplay(currentCalc.storeValue1);
@@ -748,16 +659,13 @@ document.addEventListener("keydown", () => {
                 nodeSelect.decimal.disabled = false;
             } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
-
                 let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-
                 currentCalc.storeValue1 = result;
                 currentCalc.operator = nodeSelect.times.textContent;
                 changeDOM.removeStoreValue2();
                 changeDOM.updateDisplay(result);
                 changeDOM.incrementDisplay(currentCalc.operator);
                 nodeSelect.decimal.disabled = false;
-
             } else if (currentCalc.operator){
                 changeDOM.replaceOperator(nodeSelect.times.textContent)
                 changeDOM.updateDisplay(currentCalc.storeValue1);
@@ -772,16 +680,9 @@ document.addEventListener("keydown", () => {
         
         case ("Delete"):
             currentCalc.equalsPressed = false;
-        
-            // Reset display
             changeDOM.resetDisplay();
-
-            // Reset stored values
             changeDOM.removeAllStored();
-
-            // enable the decimal
             nodeSelect.decimal.disabled = false;
-
             break;
 
         case ("/"):
@@ -792,16 +693,13 @@ document.addEventListener("keydown", () => {
                 nodeSelect.decimal.disabled = false;
             } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
-
                 let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
-
                 currentCalc.storeValue1 = result;
                 currentCalc.operator = nodeSelect.dividedBy.textContent;
                 changeDOM.removeStoreValue2();
                 changeDOM.updateDisplay(result);
                 changeDOM.incrementDisplay(currentCalc.operator);
                 nodeSelect.decimal.disabled = false;
-
             } else if (currentCalc.operator){
                 changeDOM.replaceOperator(nodeSelect.dividedBy.textContent)
                 changeDOM.updateDisplay(currentCalc.storeValue1);
@@ -814,5 +712,4 @@ document.addEventListener("keydown", () => {
             }
             break;
     }
-    
 });
