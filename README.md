@@ -11,32 +11,34 @@
 - Address a handful of potential bugs:
     - round long decimal answers
     - prevent equals button from trying to calculate before the user can provide 2 numbers and operator
-    - provide a message when user divides by 0
+    - provide a message when user divides by 0, should not crash calculator
 
 
 ### Key Reflection Points
 - Using objects to hold my related variables/functions
     - ex: grouping my DOM variables into a `nodeSelect` object
-    - ex: grouping DOM manipulation functions into a `changeDOM` object
-    - This is very handy when I need view many variables at once in the console
+    - Viewing all my nodes through the object was much easier than one at a time
 - Setting up live expression in the web console
-    - While I used it more than halfway through, it was much more efficient to have several live expressions showing me what was happening behind the scenes, instead of console logging a bunch of my button logic
-- I can use button disabled property for button control on the calculator. I used boolean/conditionals for when equals button was clicked so it does nothing, and later I used the disabled property to prevent decimal from being added multiple times
-- Adding keyboard was not as difficult as expected since the calculator logic was mostly solid; however, handling keyboard showed me some new bugs to address
-    - ex: pressing the period on my keyboard kept inserting more than 1 decimal even though the button was disable, so I used `preventDefault()` to prevent keydowns from adding more when the button itself is disabled
-- The biggest project so far and while difficult, it was very rewarding seeing the project come together, one button at a time
+    - Typically, I use console logs to verify logic flow; however, viewing the 5 specific properties that store the data live, was more efficient than consol logging in-line
+- Condition to prevent use VS disabling
+    - For the equals button, I used conditional to prevent it from operating before all variables needed existed
+    - Later, I used the `button.disabled` property to outright stop it from being clicked on to avoid mutliple decimals at a time
+- While adding keyboard support was not as difficult as expected, it did open up a new bug when pressing the `.` key
+    - Even though the decimal button was disabled, the `.` key would continue to add decimals on display and in storage, leading to NaN
+    - I used `preventDefault()` whenever the button was disabled so that keydowns would not trigger more decimals
+- The most complex project so far. I tested different approaches as I worked on the project and it was very reward seeing the project come to life, one button at a time.
 
-
-**Project Considerations/Logic Errors**
+### Project Considerations/Logic Errors
 - Use objects to hold our variables/functions
 - Move conditionals into functions to reduce code in the event listener
 
 
-**New Feature Additions**
+### New Feature Additions
 - [x] Add a working decimal button, prevent multiple decimal points
 - [x] Add a working backspace button, for numbers
 - [x] Add keyboard support
+- [x] Add inspiration button (for fun)
 
 
 ### Related Topics/Concepts
-- HTML, CSS, JavaScript, Flexbox, Git, Conditionals, Functions, Mouse Events, Keyboard Events, EventListeners, Objects,
+- HTML, CSS, JavaScript, Flexbox, Git, Conditionals, Functions, Mouse Events, Keyboard Events, EventListeners, Objects
