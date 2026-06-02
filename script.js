@@ -112,9 +112,14 @@ let changeDOM = {
         let length = value.length;
         let toLastChar = (length -1);
         let decimalCheck = value.slice(-1);
-        if (decimalCheck === "."){
-            nodeSelect.decimal.disabled = false;
-        }
+        
+        // Decimal Button Control
+        if (decimalCheck === ".") nodeSelect.decimal.disabled = false;
+        if (currentCalc.storeValue1.includes(".") && decimalCheck === "+") nodeSelect.decimal.disabled = true;
+        if (currentCalc.storeValue1.includes(".") && decimalCheck === "-") nodeSelect.decimal.disabled = true;
+        if (currentCalc.storeValue1.includes(".") && decimalCheck === "*") nodeSelect.decimal.disabled = true;
+        if (currentCalc.storeValue1.includes(".") && decimalCheck === "/") nodeSelect.decimal.disabled = true;
+
         value = value.slice(0, toLastChar);
         return value;
     },
@@ -124,6 +129,10 @@ nodeSelect.calculator.addEventListener("click", () => {
     let target = event.target;
 
     switch(target.id) {     
+        case ("happy"):
+            alert("You won't get better if you don't try, keep going!");
+            break;
+
         case ("backspace"):
             if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
                 currentCalc.storeValue2 = changeDOM.backSpace(currentCalc.storeValue2);
@@ -482,4 +491,328 @@ nodeSelect.calculator.addEventListener("click", () => {
             }
             break;
     }
+});
+
+document.addEventListener("keydown", () => {
+    let key = event.key;
+    //console.log(key);
+    //console.log(event);
+    
+    switch(key){
+        case ("Enter"):
+            if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+                // equalsPressed true
+                currentCalc.equalsPressed = true;
+
+                if (currentCalc.operator === "/" && currentCalc.storeValue2 === "0" ) {
+                    changeDOM.updateDisplay("*dies...*");
+                    nodeSelect.decimal.disabled = false;
+                } else {
+                    // Change string values to number type
+                    changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
+
+                    // Calculate result as a string, display result
+                    let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
+
+                    changeDOM.updateDisplay(result);
+
+                    // Store result value into storevalue1, reset the other 2
+                    currentCalc.storeValue1 = result;
+                    changeDOM.removeSomeStored();
+                    nodeSelect.decimal.disabled = false;
+                }
+            }
+
+            break;
+
+        case("0"):
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.zeroBtn.textContent);
+                changeDOM.storeValue(nodeSelect.zeroBtn.textContent);
+                currentCalc.equalsPressed = false;
+            } else if (currentCalc.equalsPressed === false) {
+                changeDOM.incrementDisplay(nodeSelect.zeroBtn.textContent);
+                changeDOM.storeValue(nodeSelect.zeroBtn.textContent);
+            }
+            break;
+        
+        case("."):
+            if (nodeSelect.decimal.disabled){
+                event.preventDefault();
+            } else if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.decimal.textContent);
+                changeDOM.storeValue(nodeSelect.decimal.textContent);
+                currentCalc.equalsPressed = false;
+                nodeSelect.decimal.disabled = true;
+            } else if (currentCalc.equalsPressed === false) {
+                changeDOM.incrementDisplay(nodeSelect.decimal.textContent);
+                changeDOM.storeValue(nodeSelect.decimal.textContent);
+                nodeSelect.decimal.disabled = true;
+            }
+            break;
+        
+        case("Backspace"):
+            if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+                currentCalc.storeValue2 = changeDOM.backSpace(currentCalc.storeValue2);
+                changeDOM.updateDisplay(currentCalc.storeValue1);
+                changeDOM.incrementDisplay(currentCalc.operator);
+                changeDOM.incrementDisplay(currentCalc.storeValue2);
+                currentCalc.equalsPressed = false;
+            } else if (currentCalc.storeValue1, currentCalc.operator){
+                currentCalc.operator = changeDOM.backSpace(currentCalc.operator);
+                changeDOM.updateDisplay(currentCalc.storeValue1);
+                currentCalc.equalsPressed = false;
+            } else {
+                currentCalc.storeValue1 = changeDOM.backSpace(currentCalc.storeValue1);
+                changeDOM.updateDisplay(currentCalc.storeValue1);
+                currentCalc.equalsPressed = false;
+            }
+
+            break;
+        
+        case("1"):
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.oneBtn.textContent);
+                changeDOM.storeValue(nodeSelect.oneBtn.textContent);
+                currentCalc.equalsPressed = false;
+            } else if (currentCalc.equalsPressed === false) {
+                changeDOM.incrementDisplay(nodeSelect.oneBtn.textContent);
+                changeDOM.storeValue(nodeSelect.oneBtn.textContent);
+            }
+            break;
+
+        case("2"):
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.twoBtn.textContent);
+                changeDOM.storeValue(nodeSelect.twoBtn.textContent);
+                currentCalc.equalsPressed = false;
+            } else if (currentCalc.equalsPressed === false) {
+                changeDOM.incrementDisplay(nodeSelect.twoBtn.textContent);
+                changeDOM.storeValue(nodeSelect.twoBtn.textContent);
+            }
+            break;
+
+        case("3"):
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.threeBtn.textContent);
+                changeDOM.storeValue(nodeSelect.threeBtn.textContent);
+                currentCalc.equalsPressed = false;
+            } else if (currentCalc.equalsPressed === false) {
+                changeDOM.incrementDisplay(nodeSelect.threeBtn.textContent);
+                changeDOM.storeValue(nodeSelect.threeBtn.textContent);
+            }
+            break;
+
+        case ("+"):
+            currentCalc.equalsPressed = false;
+            if (currentCalc.operator === "/" && currentCalc.storeValue2 === "0") {
+                changeDOM.updateDisplay("*dies...*");
+                currentCalc.equalsPressed = true;
+                nodeSelect.decimal.disabled = false;
+            } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+                changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
+
+                let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
+
+                currentCalc.storeValue1 = result;
+                currentCalc.operator = nodeSelect.plus.textContent;
+                changeDOM.removeStoreValue2();
+                changeDOM.updateDisplay(result);
+                changeDOM.incrementDisplay(currentCalc.operator);
+                nodeSelect.decimal.disabled = false;
+
+            } else if (currentCalc.operator){
+                changeDOM.replaceOperator(nodeSelect.plus.textContent)
+                changeDOM.updateDisplay(currentCalc.storeValue1);
+                changeDOM.incrementDisplay(currentCalc.operator);
+                nodeSelect.decimal.disabled = false;
+            } else {
+                changeDOM.incrementDisplay(nodeSelect.plus.textContent);
+                changeDOM.storeOperator(nodeSelect.plus.textContent);
+                nodeSelect.decimal.disabled = false;
+            }
+            break;
+        
+        case("4"):
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.fourBtn.textContent);
+                changeDOM.storeValue(nodeSelect.fourBtn.textContent);
+                currentCalc.equalsPressed = false;
+            } else if (currentCalc.equalsPressed === false) {
+                changeDOM.incrementDisplay(nodeSelect.fourBtn.textContent);
+                changeDOM.storeValue(nodeSelect.fourBtn.textContent);
+            }
+            break;
+
+        case("5"):
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.fiveBtn.textContent);
+                changeDOM.storeValue(nodeSelect.fiveBtn.textContent);
+                currentCalc.equalsPressed = false;
+            } else if (currentCalc.equalsPressed === false) {
+                changeDOM.incrementDisplay(nodeSelect.fiveBtn.textContent);
+                changeDOM.storeValue(nodeSelect.fiveBtn.textContent);
+            }
+            break;
+
+        case("6"):
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.sixBtn.textContent);
+                changeDOM.storeValue(nodeSelect.sixBtn.textContent);
+                currentCalc.equalsPressed = false;
+            } else if (currentCalc.equalsPressed === false) {
+                changeDOM.incrementDisplay(nodeSelect.sixBtn.textContent);
+                changeDOM.storeValue(nodeSelect.sixBtn.textContent);
+            }
+            break;
+
+        case ("-"):
+            currentCalc.equalsPressed = false;
+            if (currentCalc.operator === "/" && currentCalc.storeValue2 === "0") {
+                changeDOM.updateDisplay("*dies...*");
+                currentCalc.equalsPressed = true;
+                nodeSelect.decimal.disabled = false;
+            } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+                changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
+
+                let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
+
+                currentCalc.storeValue1 = result;
+                currentCalc.operator = nodeSelect.minus.textContent;
+                changeDOM.removeStoreValue2();
+                changeDOM.updateDisplay(result);
+                changeDOM.incrementDisplay(currentCalc.operator);
+                nodeSelect.decimal.disabled = false;
+
+            } else if (currentCalc.operator){
+                changeDOM.replaceOperator(nodeSelect.minus.textContent)
+                changeDOM.updateDisplay(currentCalc.storeValue1);
+                changeDOM.incrementDisplay(currentCalc.operator);
+                nodeSelect.decimal.disabled = false;
+            } else {
+                changeDOM.incrementDisplay(nodeSelect.minus.textContent);
+                changeDOM.storeOperator(nodeSelect.minus.textContent);
+                nodeSelect.decimal.disabled = false;
+            }
+            break;
+
+        case("7"):
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.sevenBtn.textContent);
+                changeDOM.storeValue(nodeSelect.sevenBtn.textContent);
+                currentCalc.equalsPressed = false;
+            } else if (currentCalc.equalsPressed === false) {
+                changeDOM.incrementDisplay(nodeSelect.sevenBtn.textContent);
+                changeDOM.storeValue(nodeSelect.sevenBtn.textContent);
+            }
+            break;
+
+        case("8"):
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.eightBtn.textContent);
+                changeDOM.storeValue(nodeSelect.eightBtn.textContent);
+                currentCalc.equalsPressed = false;
+            } else if (currentCalc.equalsPressed === false) {
+                changeDOM.incrementDisplay(nodeSelect.eightBtn.textContent);
+                changeDOM.storeValue(nodeSelect.eightBtn.textContent);
+            }
+            break;
+
+        case("9"):
+            if (currentCalc.equalsPressed === true){
+                changeDOM.removeAllStored();    
+                changeDOM.updateDisplay(nodeSelect.nineBtn.textContent);
+                changeDOM.storeValue(nodeSelect.nineBtn.textContent);
+                currentCalc.equalsPressed = false;
+            } else if (currentCalc.equalsPressed === false) {
+                changeDOM.incrementDisplay(nodeSelect.nineBtn.textContent);
+                changeDOM.storeValue(nodeSelect.nineBtn.textContent);
+            }
+            break;
+
+        case ("*"):
+            currentCalc.equalsPressed = false;
+            if (currentCalc.operator === "/" && currentCalc.storeValue2 === "0") {
+                changeDOM.updateDisplay("*dies...*");
+                currentCalc.equalsPressed = true;
+                nodeSelect.decimal.disabled = false;
+            } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+                changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
+
+                let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
+
+                currentCalc.storeValue1 = result;
+                currentCalc.operator = nodeSelect.times.textContent;
+                changeDOM.removeStoreValue2();
+                changeDOM.updateDisplay(result);
+                changeDOM.incrementDisplay(currentCalc.operator);
+                nodeSelect.decimal.disabled = false;
+
+            } else if (currentCalc.operator){
+                changeDOM.replaceOperator(nodeSelect.times.textContent)
+                changeDOM.updateDisplay(currentCalc.storeValue1);
+                changeDOM.incrementDisplay(currentCalc.operator);
+                nodeSelect.decimal.disabled = false;
+            } else {
+                changeDOM.incrementDisplay(nodeSelect.times.textContent);
+                changeDOM.storeOperator(nodeSelect.times.textContent);
+                nodeSelect.decimal.disabled = false;
+            }
+            break;
+        
+        case ("Delete"):
+            currentCalc.equalsPressed = false;
+        
+            // Reset display
+            changeDOM.resetDisplay();
+
+            // Reset stored values
+            changeDOM.removeAllStored();
+
+            // enable the decimal
+            nodeSelect.decimal.disabled = false;
+
+            break;
+
+        case ("/"):
+            currentCalc.equalsPressed = false;
+            if (currentCalc.operator === "/" && currentCalc.storeValue2 === "0") {
+                changeDOM.updateDisplay("*dies...*");
+                currentCalc.equalsPressed = true;
+                nodeSelect.decimal.disabled = false;
+            } else if (currentCalc.storeValue1, currentCalc.operator, currentCalc.storeValue2){
+                changeDOM.convertToNumber(currentCalc.storeValue1, currentCalc.storeValue2);
+
+                let result = (`${currentCalc.calcOperate(currentCalc.value1, currentCalc.operator, currentCalc.value2)}`);
+
+                currentCalc.storeValue1 = result;
+                currentCalc.operator = nodeSelect.dividedBy.textContent;
+                changeDOM.removeStoreValue2();
+                changeDOM.updateDisplay(result);
+                changeDOM.incrementDisplay(currentCalc.operator);
+                nodeSelect.decimal.disabled = false;
+
+            } else if (currentCalc.operator){
+                changeDOM.replaceOperator(nodeSelect.dividedBy.textContent)
+                changeDOM.updateDisplay(currentCalc.storeValue1);
+                changeDOM.incrementDisplay(currentCalc.operator);
+                nodeSelect.decimal.disabled = false;
+            } else {
+                changeDOM.incrementDisplay(nodeSelect.dividedBy.textContent);
+                changeDOM.storeOperator(nodeSelect.dividedBy.textContent);
+                nodeSelect.decimal.disabled = false;
+            }
+            break;
+    }
+    
 });
